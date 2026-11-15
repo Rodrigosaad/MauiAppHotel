@@ -2,29 +2,31 @@ name: Compilar APK .NET MAUI
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do código
+    - name: Checkout do Código
       uses: actions/checkout@v4
 
-    - name: Configurar o .NET SDK
+    - name: Configurar o .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Instalar Workload do MAUI
-      run: dotnet workload install maui
+    - name: Instalar Workloads do .NET MAUI
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json || true
 
-    - name: Publicar o Aplicativo Android (APK)
-      run: dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=false
+    - name: Compilar e Gerar APK
+      run: dotnet publish MauiAppHotel.csproj -f net8.0-android -c Release -p:AndroidPackageFormat=apk --ignore-failed-sources
 
-    - name: Enviar o APK gerado como Artefato
+    - name: Enviar APK como Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-hotel-apk
-        path: '**/*.apk'
+        path: bin/Release/net8.0-android/*/publish/*.apk

@@ -1,0 +1,36 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppHotel.Views.ResumoHospedagemPage"
+             Title="Resumo da Reserva">
+
+    <VerticalStackLayout Padding="30" Spacing="20">
+        
+        <Label Text="Resumo da sua Estadia" 
+               FontSize="22" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" />
+
+        <Frame Padding="15" CornerRadius="10">
+            <VerticalStackLayout Spacing="10">
+                <Label x:Name="lblQuarto" FontSize="18" />
+                <Label x:Name="lblAdultos" FontSize="16" />
+                <Label x:Name="lblCriancas" FontSize="16" />
+                <Label x:Name="lblCheckIn" FontSize="16" />
+                <Label x:Name="lblCheckOut" FontSize="16" />
+                <Label x:Name="lblDias" FontSize="16" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <Frame Padding="15" CornerRadius="10" BackgroundColor="#E8F5E9">
+            <VerticalStackLayout>
+                <Label Text="Valor Total:" FontSize="16" FontAttributes="Bold" TextColor="DarkGreen"/>
+                <Label x:Name="lblValorTotal" FontSize="24" FontAttributes="Bold" TextColor="DarkGreen"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <Button Text="Voltar" 
+                Clicked="Button_Voltar_Clicked" 
+                Margin="0,20,0,0" />
+
+    </VerticalStackLayout>
+</ContentPage>

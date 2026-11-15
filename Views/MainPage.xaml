@@ -1,0 +1,46 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppHotel.Views.MainPage"
+             Title="App Hotel">
+
+    <VerticalStackLayout Padding="25" Spacing="15">
+        
+        <Label Text="Calcul Reservas - Hotel" 
+               FontSize="22" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" />
+
+        <!-- Seleção de Quarto (Picker) -->
+        <Label Text="Escolha sua Suíte:" />
+        <Picker x:Name="pickerQuarto" 
+                Title="Selecione o quarto"
+                ItemDisplayBinding="{Binding Descricao}" />
+
+        <!-- Stepper para Adultos -->
+        <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+            <Label Text="Adultos:" VerticalTextAlignment="Center" WidthRequest="80"/>
+            <Stepper x:Name="stpAdultos" Minimum="1" Maximum="10" Increment="1" ValueChanged="stpAdultos_ValueChanged"/>
+            <Label Text="{Binding Source={x:Reference stpAdultos}, Path=Value}" VerticalTextAlignment="Center" FontSize="16"/>
+        </HorizontalStackLayout>
+
+        <!-- Stepper para Crianças -->
+        <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+            <Label Text="Crianças:" VerticalTextAlignment="Center" WidthRequest="80"/>
+            <Stepper x:Name="stpCriancas" Minimum="0" Maximum="10" Increment="1" ValueChanged="stpCriancas_ValueChanged"/>
+            <Label Text="{Binding Source={x:Reference stpCriancas}, Path=Value}" VerticalTextAlignment="Center" FontSize="16"/>
+        </HorizontalStackLayout>
+
+        <!-- Datas de Check-in e Check-out -->
+        <Label Text="Data de Check-in:" />
+        <DatePicker x:Name="dtpCheckIn" Format="dd/MM/yyyy" DateSelected="dtpCheckIn_DateSelected"/>
+
+        <Label Text="Data de Check-out:" />
+        <DatePicker x:Name="dtpCheckOut" Format="dd/MM/yyyy" />
+
+        <!-- Botão Avançar / Calcular -->
+        <Button Text="Avançar" 
+                Clicked="Button_Clicked" 
+                Margin="0,20,0,0" />
+
+    </VerticalStackLayout>
+</ContentPage>

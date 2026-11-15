@@ -20,10 +20,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Instalar Workloads do .NET MAUI
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json || true
+      run: dotnet workload install maui-android
 
     - name: Compilar e Gerar APK
-      run: dotnet publish MauiAppHotel.csproj -f net8.0-android -c Release -p:AndroidPackageFormat=apk --ignore-failed-sources
+      run: dotnet publish MauiAppHotel.csproj -f net8.0-android -c Release -p:AndroidPackageFormat=apk
 
     - name: Enviar APK como Artifact
       uses: actions/upload-artifact@v4

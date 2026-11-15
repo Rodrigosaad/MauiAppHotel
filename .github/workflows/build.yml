@@ -23,10 +23,13 @@ jobs:
         dotnet workload install maui-android
 
     - name: Publish Android APK
-      run: dotnet publish MauiAppHotel.csproj -f net8.0-android -c Release -p:AndroidPackageFormat=apk
+      run: |
+        PROJECT_FILE=$(find . -name "*.csproj" | head -n 1)
+        echo "A usar o projeto: $PROJECT_FILE"
+        dotnet publish "$PROJECT_FILE" -f net8.0-android -c Release -p:AndroidPackageFormat=apk
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-hotel-apk
-        path: bin/Release/net8.0-android/*/publish/*.apk
+        path: '**/publish/*.apk'

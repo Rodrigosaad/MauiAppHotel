@@ -9,27 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Checkout do Código
       uses: actions/checkout@v4
 
-    - name: Setup .NET
+    - name: Configurar .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Instalar Workloads MAUI
+    - name: Instalar Cargas de Trabalho MAUI
       run: |
         dotnet workload install maui
         dotnet workload install maui-android
 
-    - name: Publicar APK Android
-      run: |
-        PROJECT_PATH=$(find . -name "*.csproj" | head -n 1)
-        echo "A compilar o projeto: $PROJECT_PATH"
-        dotnet publish "$PROJECT_PATH" -f net8.0-android -c Release -p:AndroidPackageFormat=apk
+    - name: Publicar e Gerar APK
+      run: dotnet publish MauiAppHotel/MauiAppHotel.csproj -f net8.0-android -c Release -p:AndroidPackageFormat=apk
 
-    - name: Guardar Artifact
+    - name: Enviar APK como Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-hotel-apk
-        path: '**/publish/*.apk'
+        path: MauiAppHotel/bin/Release/net8.0-android/*/publish/*.apk
